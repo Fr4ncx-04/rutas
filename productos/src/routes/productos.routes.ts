@@ -3,6 +3,6 @@ import { getAll } from "../controladores/productos.controller";
 
 const router = Router();
 
-router.get("/all", getAll);
+router.get("/", getAll);
 
-export default router;
+export default router; 

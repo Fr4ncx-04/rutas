@@ -1,19 +1,19 @@
 import express from "express";
-import productosRoutes from "./routes/productos.routes"; 
+import cors from "cors";
+import dotenv from "dotenv";
+import { productosRoutes } from "./routes";
+
+dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 4000;
-
+app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("Hola Unach");
-});
+const PORT = process.env.PORT || 4000;
 
-// Definir prefijo para rutas de productos
-app.use("/productos", productosRoutes);
 
-// Iniciar el servidor
-app.listen(port, () => {
-    console.log(`Escuchando en el puerto: ${port}`);
+app.use("/api/v1/productos", productosRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Microservicio de Productos corriendo en el puerto:${PORT}`);
 });

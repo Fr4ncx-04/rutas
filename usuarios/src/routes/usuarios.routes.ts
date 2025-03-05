@@ -4,6 +4,6 @@ import {getUsuarios} from "../controladores/usuarios.controller"
 const router=Router();
 
 //ruta para obtener todos los usuarios
-router.get("/lista", getUsuarios);
+router.get("/", getUsuarios);
 
-export default router;
+export default router; 

@@ -7,3 +7,4 @@ export const getUsuarios = (req: any, res: any) => {
         ];
         res.json(Usuarios);
 };
+ 

@@ -1,17 +1,19 @@
 import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
 import usuariosRoutes from "./routes/usuarios.routes"
 
-const app= express()
-const port = process.env.PORT || 5000;
+dotenv.config();
 
+const app = express();
+app.use(cors());
 app.use(express.json());
 
-app.use("/usuarios", usuariosRoutes);
+const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-    res.send("inicio de usuarioss");
-});
 
-app.listen(port, () => {
-    console.log(`servidor usuarios corriendo en el puerto ${port}`)
+app.use("/api/v1/usuarios", usuariosRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Microservicio de Usuarios corriendo en el puerto:${PORT}`);
 });
