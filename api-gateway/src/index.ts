@@ -14,16 +14,21 @@ app.listen(port, () => {
   console.log(`API Gateway is running on port ${port}`);
 }); */
 
+// api-gateway/index.js
 import express from 'express';
-import cors from 'cors'
+import cors from 'cors';
 import dotenv from 'dotenv';
 import axios from 'axios';
 
-const app = express()
+// Cargar variables de entorno (asegúrate de tener el archivo .env en la raíz)
+dotenv.config();
 
-dotenv.config({path: "./home/taller4O/api-gateway/src/.env"});
-app.use(cors())
+const app = express();
+app.use(cors());
 app.use(express.json());
+
+// Variable para la URL del servicio de productos
+const PRODUCTS_SERVICE_URL = process.env.PRODUCTS_SERVICE_URL || "http://172.19.83.145:4000/api/v1/productos";
 
 app.get("/", (req, res) => {
   res.send("API Gateway is running");
@@ -31,25 +36,15 @@ app.get("/", (req, res) => {
 
 app.get("/api/v1/productos", async (req, res) => {
   try {
-    const respuesta = await axios.get("http://localhost:4000/api/v1/productos");
+    const respuesta = await axios.get(PRODUCTS_SERVICE_URL);
     res.json(respuesta.data);
   } catch (error) {
-    res.status(500).json({ error: "Error al obtener la lista productos" });
+    console.error("Error al obtener productos:", (error as Error).message);
+    res.status(500).json({ error: "Error al obtener la lista de productos" });
   }
 });
 
-app.get("/api/v1/usuarios", async (req, res) => {
-  try {
-    const respuesta = await axios.get("http://localhost:5000/api/v1/usuarios");
-    res.json(respuesta.data);
-  } catch (error) {
-    res.status(500).json({ error: "Error al obtener la lista de usuarios" });
-  }
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`API Gateway is running on port ${PORT}`);
 });
-
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`API Gateway is running on port ${port}`);
-});
-
