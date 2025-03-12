@@ -14,20 +14,18 @@ app.listen(port, () => {
   console.log(`API Gateway is running on port ${port}`);
 }); */
 
-// api-gateway/index.js
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import axios from 'axios';
 
-// Cargar variables de entorno (asegúrate de tener el archivo .env en la raíz)
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Variable para la URL del servicio de productos
+//URL del servicio de productos
 const PRODUCTS_SERVICE_URL = process.env.PRODUCTS_SERVICE_URL || "http://172.19.83.145:4000/api/v1/productos";
 
 app.get("/", (req, res) => {
