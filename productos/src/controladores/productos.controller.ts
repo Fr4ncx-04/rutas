@@ -93,7 +93,7 @@ export const updateAll = (req: any, res: any) => {
   }
 };
 
-// Actualizar un producto en la base de datos
+// Eliminar un producto en la base de datos
 export const deleteAll = (req: any, res: any) => {
   try {
     const {id} = req.params;
